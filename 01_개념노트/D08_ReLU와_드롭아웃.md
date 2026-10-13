@@ -7,7 +7,7 @@ created: 2026-10-13
 updated: 2026-10-13
 ---
 
-# ReLU와 드롭아웃 (CNN EX_03)
+# ReLU와 드롭아웃 (CNN EX\_03)
 
 [목차로 돌아가기](../00_%EB%94%A5%EB%9F%AC%EB%8B%9D%EC%88%98%ED%95%99_MOC.md) · 예제: `02_CNN/EX_03_MNIST_ReLU_Dropout.ipynb` · 코드 풀이: [E10_CNN_ReLU_Dropout_예제](../03_%EC%98%88%EC%A0%9C%ED%92%80%EC%9D%B4/E10_CNN_ReLU_Dropout_%EC%98%88%EC%A0%9C.md)
 

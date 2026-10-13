@@ -8,7 +8,7 @@ created: 2026-10-13
 updated: 2026-10-13
 ---
 
-# CNN EX_03 예제 풀이 — ReLU와 드롭아웃 적용
+# CNN EX\_03 예제 풀이 — ReLU와 드롭아웃 적용
 
 [목차](../00_%EB%94%A5%EB%9F%AC%EB%8B%9D%EC%88%98%ED%95%99_MOC.md) · 개념: [D08_ReLU와_드롭아웃](../01_%EA%B0%9C%EB%85%90%EB%85%B8%ED%8A%B8/D08_ReLU%EC%99%80_%EB%93%9C%EB%A1%AD%EC%95%84%EC%9B%83.md) · 이전: [E09_CNN_3Conv_MNIST_예제](E09_CNN_3Conv_MNIST_%EC%98%88%EC%A0%9C.md)
 

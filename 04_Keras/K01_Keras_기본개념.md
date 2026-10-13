@@ -12,13 +12,13 @@ updated: 2026-10-13
 
 > [!NOTE]
 > **3줄 요약**
-> - Keras는 EX_02에서 손으로 짠 **가설·비용·기울기·반복**을 대신 해 주는 도구다. 우리는 "어떤 층을 쌓을지, 어떤 비용으로 배울지"만 정한다.
+> - Keras는 EX\_02에서 손으로 짠 **가설·비용·기울기·반복**을 대신 해 주는 도구다. 우리는 "어떤 층을 쌓을지, 어떤 비용으로 배울지"만 정한다.
 > - 순서는 언제나 **데이터 준비 → 모델 정의 → compile → fit → evaluate/predict** 다섯 단계다.
 > - 가장 자주 틀리는 곳은 **출력층·손실 함수·정답 모양의 짝**이다. 아래 4절 표 하나만 기억하면 된다.
 
 ## 1. 손으로 짠 것과 Keras의 대응
 
-| EX_02 (numpy로 직접) | Keras | 하는 일 |
+| EX\_02 (numpy로 직접) | Keras | 하는 일 |
 |---|---|---|
 | `def Hypothesis(x): return W*x + B` | `tf.keras.layers.Dense(1)` | 가설(가중합) |
 | `W = np.random.normal()` | 층을 만들 때 자동 | 가중치 무작위 초기화 |
@@ -40,17 +40,17 @@ flowchart LR
   D --> E["5. evaluate / predict<br>평가·예측"]
 ```
 
-| 단계 | 코드 (EX_05 기준) | 주의 |
+| 단계 | 코드 (EX\_05 기준) | 주의 |
 |---|---|---|
 | 1. 데이터 | `x_input = (x_input-x_min)/(x_max-x_min)` | 정규화, 모양(shape) |
 | 2. 모델 | `Sequential([Input(shape=(2,)), Dense(1, activation='sigmoid')])` | 입력 모양 = 데이터 한 개의 모양 |
 | 3. compile | `compile(optimizer=SGD(learning_rate=0.1), loss='binary_crossentropy', metrics=['accuracy'])` | 출력층·loss·정답 짝 |
-| 4. fit | `history = model.fit(x_input, labels, epochs=1000)` | epochs, batch_size |
+| 4. fit | `history = model.fit(x_input, labels, epochs=1000)` | epochs, batch\_size |
 | 5. 예측 | `model.predict((x-x_min)/(x_max-x_min))` | 새 입력도 같은 기준으로 정규화 |
 
 ## 3. 모델 만들기 세 가지 방법
 
-### 3.1 Sequential에 리스트로 (EX_04~07)
+### 3.1 Sequential에 리스트로 (EX\_04~07)
 
 ```python
 model = tf.keras.models.Sequential([
@@ -70,7 +70,7 @@ model.add(tf.keras.layers.Conv2D(filters=32, kernel_size=3, padding='same', acti
 
 두 방법은 결과가 같다. 층이 많으면 add가 읽기 편하다.
 
-### 3.3 Functional API: 입력과 출력을 직접 연결 (CNN EX_02의 특징 맵)
+### 3.3 Functional API: 입력과 출력을 직접 연결 (CNN EX\_02의 특징 맵)
 
 ```python
 model_fm = tf.keras.models.Model(inputs=model.inputs, outputs=outputs)   # 입력은 같고 출력이 여러 개인 새 모델
@@ -83,10 +83,10 @@ model_fm = tf.keras.models.Model(inputs=model.inputs, outputs=outputs)   # 입�
 
 | 문제 | 출력층 | loss | 정답(labels) 모양 | 예제 |
 |---|---|---|---|---|
-| 회귀 (숫자 맞히기) | `Dense(n)` (활성화 없음) | `'mean_squared_error'` | 숫자 `[118, 72]` | EX_04 |
-| 이진 분류 | `Dense(1, activation='sigmoid')` | `'binary_crossentropy'` | `[0]` 또는 `[1]` | EX_05 |
-| 다중 분류 (원-핫 정답) | `Dense(K, activation='softmax')` | `'categorical_crossentropy'` | `[0, 1, 0]` | EX_06 |
-| 다중 분류 (번호 정답) | `Dense(K, activation='softmax')` | `'sparse_categorical_crossentropy'` | `1` | EX_07, CNN |
+| 회귀 (숫자 맞히기) | `Dense(n)` (활성화 없음) | `'mean_squared_error'` | 숫자 `[118, 72]` | EX\_04 |
+| 이진 분류 | `Dense(1, activation='sigmoid')` | `'binary_crossentropy'` | `[0]` 또는 `[1]` | EX\_05 |
+| 다중 분류 (원-핫 정답) | `Dense(K, activation='softmax')` | `'categorical_crossentropy'` | `[0, 1, 0]` | EX\_06 |
+| 다중 분류 (번호 정답) | `Dense(K, activation='softmax')` | `'sparse_categorical_crossentropy'` | `1` | EX\_07, CNN |
 
 > [!WARNING]
 > **⚠ 짝이 안 맞으면**
@@ -134,15 +134,15 @@ history = model.fit(train_data, train_labels,
                     validation_data=(test_data, test_labels))    # 바퀴마다 검증
 ```
 
-- **batch_size**: 한 바퀴의 단계 수 = 데이터 수 ÷ batch_size (올림). 6만 장이면 32 → 1875, 64 → 938, 128 → 469.
+- **batch\_size**: 한 바퀴의 단계 수 = 데이터 수 ÷ batch\_size (올림). 6만 장이면 32 → 1875, 64 → 938, 128 → 469.
 - **history.history**: 바퀴마다 기록된 숫자 사전. 키는 `'loss'`, `'accuracy'`, 그리고 검증을 넣으면 `'val_loss'`, `'val_accuracy'`. 그래프 그릴 때 쓴다([E05_혈압_로지스틱회귀_예제](../03_%EC%98%88%EC%A0%9C%ED%92%80%EC%9D%B4/E05_%ED%98%88%EC%95%95_%EB%A1%9C%EC%A7%80%EC%8A%A4%ED%8B%B1%ED%9A%8C%EA%B7%80_%EC%98%88%EC%A0%9C.md) 1-6절).
 
 ## 9. 평가와 예측
 
 | 함수                     | 넣는 것    | 돌려주는 것             | 예제                       |
 | ---------------------- | ------- | ------------------ | ------------------------ |
-| `model.evaluate(x, y)` | 입력 + 정답 | `[loss, accuracy]` | EX_07: `[0.267, 0.9257]` |
-| `model.predict(x)`     | 입력만     | 출력층 값 (확률 등)       | EX_05: `0.4251`          |
+| `model.evaluate(x, y)` | 입력 + 정답 | `[loss, accuracy]` | EX\_07: `[0.267, 0.9257]` |
+| `model.predict(x)`     | 입력만     | 출력층 값 (확률 등)       | EX\_05: `0.4251`          |
 
 - 둘 다 가중치를 고치지 않는다. 드롭아웃도 꺼진 상태로 계산한다.
 - `predict` 결과가 확률이면 `np.argmax(..., axis=1)`로 예측 번호를 얻는다.
