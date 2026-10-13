@@ -1,0 +1,23 @@
+/* 용어사전 링크는 본문 글자색 그대로, 옅은 점선 밑줄만 표시 (읽기 보기)
+   [[위키링크]]와 [텍스트](../00_딥러닝_용어사전.md#...) 링크 모두 해당 */
+.markdown-rendered a.internal-link[data-href*="00_딥러닝_용어사전"],
+.markdown-rendered a.internal-link[data-href*="00_%EB%94%A5%EB%9F%AC%EB%8B%9D_%EC%9A%A9%EC%96%B4%EC%82%AC%EC%A0%84"] {
+  color: inherit;
+  text-decoration: underline dotted var(--text-faint);
+  text-underline-offset: 3px;
+}
+
+.markdown-rendered a.internal-link[data-href*="00_딥러닝_용어사전"]:hover,
+.markdown-rendered a.internal-link[data-href*="00_%EB%94%A5%EB%9F%AC%EB%8B%9D_%EC%9A%A9%EC%96%B4%EC%82%AC%EC%A0%84"]:hover {
+  color: var(--link-color-hover);
+  text-decoration-color: var(--link-color-hover);
+}
+
+/* 편집 보기(라이브 프리뷰)는 링크 대상을 구분할 수 없다.
+   거기서도 모든 내부 링크를 옅게 하려면 아래 주석을 푼다. */
+/*
+.markdown-source-view.mod-cm6 .cm-hmd-internal-link .cm-underline {
+  color: inherit;
+  text-decoration: underline dotted var(--text-faint);
+}
+*/

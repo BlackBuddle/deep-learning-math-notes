@@ -1,0 +1,76 @@
+/* 딥러닝 노트 가독성
+   적용 범위: 속성에 cssclasses: [dl-note]가 있는 노트만 */
+
+/* 1. 본문: 한글에 맞춘 줄 간격 */
+.dl-note {
+  --line-height-normal: 1.75;
+}
+
+/* 2. 제목: ## 아래 구분선, ### 강조색, #### 옅게 */
+.dl-note .markdown-rendered h2,
+.dl-note .HyperMD-header-2 {
+  border-bottom: 1px solid var(--background-modifier-border);
+  padding-bottom: 0.25em;
+}
+.dl-note .markdown-rendered h2 {
+  margin-top: 1.8em;
+}
+.dl-note .markdown-rendered h3,
+.dl-note .HyperMD-header-3 {
+  color: var(--text-accent);
+}
+.dl-note .markdown-rendered h4,
+.dl-note .HyperMD-header-4 {
+  color: var(--text-muted);
+}
+
+/* 3. 표: 머리줄 배경, 줄무늬, 넉넉한 칸 */
+.dl-note table {
+  border-collapse: collapse;
+  font-size: 0.92em;
+}
+.dl-note th {
+  background: var(--background-secondary);
+  font-weight: 600;
+}
+.dl-note th,
+.dl-note td {
+  padding: 6px 10px;
+}
+.dl-note tbody tr:nth-child(even) {
+  background: var(--background-primary-alt);
+}
+.dl-note td code {
+  font-size: 0.85em;
+  white-space: nowrap;
+}
+
+/* 4. 본문 속 코드: 옅은 배경 */
+.dl-note .markdown-rendered :not(pre) > code,
+.dl-note .cm-inline-code {
+  background: var(--background-modifier-hover);
+  border-radius: 4px;
+  padding: 0.1em 0.35em;
+}
+
+/* 5. 콜아웃: 둥근 모서리와 여백 */
+.dl-note .callout {
+  border-radius: 8px;
+  padding: 10px 14px;
+}
+
+/* 확인 질문: 답의 굵은 값을 강조색으로 */
+.dl-note .callout[data-callout="question"] strong {
+  color: var(--text-accent);
+}
+
+/* 접힌 미니 복습·기호 풀이는 회색으로 눌러 두고, 펼치면 원래 색 */
+.dl-note .callout[data-callout="tip"].is-collapsed {
+  --callout-color: 140, 140, 140;
+}
+
+/* 6. 수식: 위아래 여백, 길면 가로 스크롤 */
+.dl-note mjx-container[display="true"] {
+  margin: 0.8em 0 !important;
+  overflow-x: auto;
+}
