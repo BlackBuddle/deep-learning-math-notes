@@ -12,6 +12,8 @@ cssclasses: [dl-note]
 
 [목차로 돌아가기](../00_%EB%94%A5%EB%9F%AC%EB%8B%9D%EC%88%98%ED%95%99_MOC.md) · 예제: `EX_07_MNIST_Classification.ipynb` · 코드 풀이: [E07_MNIST_분류_예제](../03_%EC%98%88%EC%A0%9C%ED%92%80%EC%9D%B4/E07_MNIST_%EB%B6%84%EB%A5%98_%EC%98%88%EC%A0%9C.md)
 
+> 참고: [학습](../00_%EB%94%A5%EB%9F%AC%EB%8B%9D_%EC%9A%A9%EC%96%B4%EC%82%AC%EC%A0%84.md#training-%ED%95%99%EC%8A%B5)·[검증](../00_%EB%94%A5%EB%9F%AC%EB%8B%9D_%EC%9A%A9%EC%96%B4%EC%82%AC%EC%A0%84.md#validation-data-%EA%B2%80%EC%A6%9D-%EB%8D%B0%EC%9D%B4%ED%84%B0)·[시험 데이터](../00_%EB%94%A5%EB%9F%AC%EB%8B%9D_%EC%9A%A9%EC%96%B4%EC%82%AC%EC%A0%84.md#training-data-test-data-%ED%95%99%EC%8A%B5-%EB%8D%B0%EC%9D%B4%ED%84%B0%EC%99%80-%EC%8B%9C%ED%97%98-%EB%8D%B0%EC%9D%B4%ED%84%B0) 나누기와 배치·[미니배치](../00_%EB%94%A5%EB%9F%AC%EB%8B%9D_%EC%9A%A9%EC%96%B4%EC%82%AC%EC%A0%84.md#mini-batch-%EB%AF%B8%EB%8B%88%EB%B0%B0%EC%B9%98)·[에폭](../00_%EB%94%A5%EB%9F%AC%EB%8B%9D_%EC%9A%A9%EC%96%B4%EC%82%AC%EC%A0%84.md#epoch-%EC%97%90%ED%8F%AD)의 관계는 [D13_데이터나누기와_과적합](../01_%EA%B0%9C%EB%85%90%EB%85%B8%ED%8A%B8/D13_%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%82%98%EB%88%84%EA%B8%B0%EC%99%80_%EA%B3%BC%EC%A0%81%ED%95%A9.md)
+
 > [!NOTE]
 > **3줄 요약**
 > - 컴퓨터에게 그림은 **숫자 표**다. 28×28 표를 한 줄(784칸)로 펴면 [D05_소프트맥스와_다중분류](../01_%EA%B0%9C%EB%85%90%EB%85%B8%ED%8A%B8/D05_%EC%86%8C%ED%94%84%ED%8A%B8%EB%A7%A5%EC%8A%A4%EC%99%80_%EB%8B%A4%EC%A4%91%EB%B6%84%EB%A5%98.md)와 똑같은 10등급 [분류](../00_%EB%94%A5%EB%9F%AC%EB%8B%9D_%EC%9A%A9%EC%96%B4%EC%82%AC%EC%A0%84.md#regression-classification-%ED%9A%8C%EA%B7%80%EC%99%80-%EB%B6%84%EB%A5%98) 문제가 된다.
@@ -24,7 +26,9 @@ cssclasses: [dl-note]
 
 > 비유: 모눈종이 28×28칸에 연필로 숫자를 쓰고, 칸마다 얼마나 진한지 0~255로 적은 표를 컴퓨터에 준다. 컴퓨터는 "이 칸들이 진하면 7일 가능성이 높다" 같은 규칙을 칸마다 배운다.
 
-정확히 말하면, 이미지 [분류](../00_%EB%94%A5%EB%9F%AC%EB%8B%9D_%EC%9A%A9%EC%96%B4%EC%82%AC%EC%A0%84.md#regression-classification-%ED%9A%8C%EA%B7%80%EC%99%80-%EB%B6%84%EB%A5%98)는 그림의 칸 값(28×28개, 각각 0~255)을 입력받아 0~9 열 가지 등급 중 하나를 고르는 [분류](../00_%EB%94%A5%EB%9F%AC%EB%8B%9D_%EC%9A%A9%EC%96%B4%EC%82%AC%EC%A0%84.md#regression-classification-%ED%9A%8C%EA%B7%80%EC%99%80-%EB%B6%84%EB%A5%98) 문제다. MNIST는 이런 손글씨 숫자 그림을 모아 둔 데이터 묶음이고, 학습용 6만 장과 시험용 1만 장으로 나뉘어 있다.
+정확히 말하면, 이미지 [분류](../00_%EB%94%A5%EB%9F%AC%EB%8B%9D_%EC%9A%A9%EC%96%B4%EC%82%AC%EC%A0%84.md#regression-classification-%ED%9A%8C%EA%B7%80%EC%99%80-%EB%B6%84%EB%A5%98)는 그림의 칸 값(28×28개, 각각 0~255)을 입력받아 0~9 열 가지 등급 중 하나를 고르는 [분류](../00_%EB%94%A5%EB%9F%AC%EB%8B%9D_%EC%9A%A9%EC%96%B4%EC%82%AC%EC%A0%84.md#regression-classification-%ED%9A%8C%EA%B7%80%EC%99%80-%EB%B6%84%EB%A5%98) 문제다. [MNIST](../00_%EB%94%A5%EB%9F%AC%EB%8B%9D_%EC%9A%A9%EC%96%B4%EC%82%AC%EC%A0%84.md#mnist-%EC%86%90%EA%B8%80%EC%94%A8-%EC%88%AB%EC%9E%90-%EB%8D%B0%EC%9D%B4%ED%84%B0%EC%85%8B)는 이런 손글씨 숫자 그림을 모아 둔 데이터 묶음이고, 학습용 6만 장과 시험용 1만 장으로 나뉘어 있다.
+
+![D06_fig_digits.png](../attachments/D06_fig_digits.png)
 
 ## 2. 필요한 이유
 
@@ -72,6 +76,8 @@ cssclasses: [dl-note]
 (r행, c열) 칸은 한 줄에서 **r × 4 + c** 위치가 된다. 예: (2행, 1열) → 2 × 4 + 1 = 0부터 센 위치 9 (값 9) ✓
 
 28×28이면 r × 28 + c, 총 784칸이다.
+
+![D06_fig_pixels.png](../attachments/D06_fig_pixels.png)
 
 ### 4.3 덴스 층(출력 10개)과 소프트맥스
 
